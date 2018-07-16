@@ -1,0 +1,38 @@
+{
+  "name": "merge-umi-mock-data",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chenshuai2144/merge-umi-mock-data.git"
+  },
+  "author": "chenshuai",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chenshuai2144/merge-umi-mock-data/issues"
+  },
+  "homepage": "https://github.com/chenshuai2144/merge-umi-mock-data#readme",
+  "dependencies": {
+    "@babel/core": "7.0.0-beta.46",
+    "@babel/plugin-transform-modules-commonjs": "7.0.0-beta.46",
+    "@babel/register": "7.0.0-beta.46",
+    "@babel/runtime": "7.0.0-beta.46",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-plugin-dynamic-import-node-sync": "^2.0.1",
+    "babel-preset-umi": "0.3.0",
+    "mockjs": "^1.0.1-beta3",
+    "moment": "^2.22.2",
+    "rollup": "^0.62.0",
+    "rollup-plugin-babel": "^4.0.0-beta.7",
+    "rollup-plugin-commonjs": "^9.1.3",
+    "rollup-plugin-json": "^3.0.0",
+    "rollup-plugin-multi-entry": "^2.0.2",
+    "rollup-plugin-node-builtins": "^2.1.2",
+    "rollup-plugin-node-resolve": "^3.3.0",
+    "rollup-plugin-replace": "^2.0.0"
+  }
+}
