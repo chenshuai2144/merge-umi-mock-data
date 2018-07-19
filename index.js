@@ -37,14 +37,12 @@ const importMockFiles = (mockFiles, mockPath) => {
     importString.push(
       `import ${fileName} from "${path.join(mockPath, filePath)}";`
     );
-    dataString.push(`...${fileName},`);
+    dataString.push(`${fileName}`);
   });
   return `
 ${importString.join("\n")}
 
-const data = {
-${dataString.join("\n")}
-}
+const data = Object.assign({},dataString.join);
 
 export default data;
 `;
