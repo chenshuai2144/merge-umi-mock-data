@@ -42,7 +42,7 @@ const importMockFiles = (mockFiles, mockPath) => {
   return `
 ${importString.join("\n")}
 
-const data = Object.assign({},dataString.join);
+const data = Object.assign({},${dataString.join(',')});
 
 export default data;
 `;
