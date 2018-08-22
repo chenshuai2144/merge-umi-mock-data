@@ -20,7 +20,17 @@ const inputOptions = {
       exclude: "node_modules/**",
       babelrc: false,
       runtimeHelpers: true,
-      presets: ["umi"]
+      presets: [
+        [
+          "env",
+          {
+            targets: {
+              node: "6.11.5"
+            },
+            modules: false
+          }
+        ]
+      ]
     })
   ]
 };
@@ -42,7 +52,7 @@ const importMockFiles = (mockFiles, mockPath) => {
   return `
 ${importString.join("\n")}
 
-const data = Object.assign({},${dataString.join(',')});
+const data = Object.assign({},${dataString.join(",")});
 
 export default data;
 `;
@@ -62,5 +72,8 @@ async function build(mockPath, outputfile) {
   // or write the bundle to disk
   await bundle.write(outputOptions);
 }
-
+build(
+  "/Users/jim/Documents/GitHub/ant-design-pro/mock",
+  "/Users/jim/Documents/GitHub/ant-design-pro/functions/mock/index.js"
+);
 module.exports = build;
