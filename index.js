@@ -1,5 +1,6 @@
 const rollup = require("rollup");
 const json = require("rollup-plugin-json");
+const chalk = require("chalk");
 const babel = require("rollup-plugin-babel");
 const builtins = require("rollup-plugin-node-builtins");
 const glob = require("glob");
@@ -10,6 +11,7 @@ const allMock = path.join(__dirname, "./allMock.js");
 
 const inputOptions = {
   input: allMock,
+  onwarn(warning) {},
   plugins: [
     builtins(),
     json({
@@ -22,7 +24,7 @@ const inputOptions = {
       runtimeHelpers: true,
       presets: [
         [
-          "env",
+          "@babel/env",
           {
             targets: {
               node: "6.11.5"
@@ -47,12 +49,12 @@ const importMockFiles = (mockFiles, mockPath) => {
     importString.push(
       `import ${fileName} from "${path.join(mockPath, filePath)}";`
     );
-    dataString.push(`${fileName}`);
+    dataString.push(`...${fileName}`);
   });
   return `
 ${importString.join("\n")}
 
-const data = Object.assign({},${dataString.join(",")});
+const data = {${dataString.join(",")}};
 
 export default data;
 `;
@@ -62,6 +64,7 @@ async function build(mockPath, outputfile) {
   const mockFiles = glob.sync("**/*.js", {
     cwd: mockPath
   });
+  console.log("get files: " + chalk.green(mockFiles.join(", ")));
   const allMockText = importMockFiles(mockFiles, mockPath);
   fs.writeFileSync(allMock, allMockText);
   // create a bundle
@@ -71,9 +74,12 @@ async function build(mockPath, outputfile) {
   await bundle.generate(outputOptions);
   // or write the bundle to disk
   await bundle.write(outputOptions);
+  console.log(chalk.yellow("-".repeat(80)));
+  console.log(chalk.blue("finsh merge file"));
 }
+
 build(
-  "/Users/jim/Documents/GitHub/ant-design-pro/mock",
-  "/Users/jim/Documents/GitHub/ant-design-pro/functions/mock/index.js"
+  "/Users/qixian.cs/Documents/GitHub/ant-design-pro/mock",
+  "/Users/qixian.cs/Documents/GitHub/ant-design-pro/functions/mock/index.js"
 );
 module.exports = build;
