@@ -19,7 +19,6 @@ const inputOptions = {
       indent: "  "
     }),
     babel({
-      exclude: "node_modules/**",
       babelrc: false,
       runtimeHelpers: true,
       presets: [
