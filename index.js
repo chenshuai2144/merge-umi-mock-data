@@ -78,8 +78,4 @@ async function build(mockPath, outputfile) {
   console.log(chalk.blue("finsh merge file"));
 }
 
-build(
-  "/Users/qixian.cs/Documents/GitHub/ant-design-pro/mock",
-  "/Users/qixian.cs/Documents/GitHub/ant-design-pro/functions/mock/index.js"
-);
 module.exports = build;
