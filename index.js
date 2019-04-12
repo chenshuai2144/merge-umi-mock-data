@@ -46,7 +46,7 @@ const importMockFiles = (mockFiles, mockPath) => {
   mockFiles.forEach(filePath => {
     const fileName = filePath.replace(".js", "");
     importString.push(
-      `import ${fileName} from "${path.join(mockPath, filePath)}";`
+      `import ${fileName} from "${path.join(mockPath, filePath).replace(/\\/g,'\\\\')}";`
     );
     dataString.push(`...${fileName}`);
   });
