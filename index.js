@@ -75,7 +75,7 @@ async function build(mockPath, outputfile) {
   // or write the bundle to disk
   await bundle.write(outputOptions);
   console.log(chalk.yellow("-".repeat(80)));
-  console.log(chalk.blue("finsh merge file"));
+  console.log(chalk.blue("finish merge file"));
 }
 
 module.exports = build;
