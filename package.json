@@ -1,34 +1,30 @@
 {
   "name": "merge-umi-mock-data",
-  "version": "1.0.5",
+  "version": "2.0.5",
   "description": "",
-  "main": "index.js",
-  "scripts": {
-    "release": "standard-version",
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "homepage": "https://github.com/chenshuai2144/merge-umi-mock-data#readme",
+  "bugs": {
+    "url": "https://github.com/chenshuai2144/merge-umi-mock-data/issues"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/chenshuai2144/merge-umi-mock-data.git"
   },
-  "author": "chenshuai",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/chenshuai2144/merge-umi-mock-data/issues"
+  "author": "chenshuai",
+  "main": "index.js",
+  "scripts": {
+    "release": "standard-version",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "homepage": "https://github.com/chenshuai2144/merge-umi-mock-data#readme",
   "dependencies": {
-    "@babel/core": "^7.0.0-rc.2",
-    "@babel/plugin-transform-modules-commonjs": "^7.0.0-rc.2",
+    "@babel/core": "^7.4.0",
     "@babel/preset-env": "^7.2.3",
-    "@babel/register": "^7.0.0-rc.2",
-    "@babel/runtime": "^7.0.0-rc.2",
-    "babel-plugin-add-module-exports": "^1.0.0",
-    "babel-plugin-dynamic-import-node-sync": "^2.0.1",
+    "@babel/preset-typescript": "^7.3.3",
     "chalk": "^2.4.2",
     "mockjs": "^1.0.1-beta3",
     "moment": "^2.22.2",
-    "rollup": "^1.0.2",
+    "rollup": "^1.12.2",
     "rollup-plugin-babel": "^4.2.0",
     "rollup-plugin-commonjs": "^9.2.0",
     "rollup-plugin-json": "^3.1.0",
@@ -38,5 +34,6 @@
     "rollup-plugin-replace": "^2.0.0",
     "slash2": "^2.0.0",
     "standard-version": "^4.4.0"
-  }
+  },
+  "devDependencies": {}
 }
