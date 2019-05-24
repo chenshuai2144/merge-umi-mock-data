@@ -6,6 +6,7 @@ const builtins = require("rollup-plugin-node-builtins");
 const glob = require("glob");
 const path = require("path");
 const fs = require("fs");
+const slash = require('slash2');
 
 const allMock = path.join(__dirname, "./allMock.js");
 
@@ -46,7 +47,7 @@ const importMockFiles = (mockFiles, mockPath) => {
   mockFiles.forEach(filePath => {
     const fileName = filePath.replace(".js", "");
     importString.push(
-      `import ${fileName} from "${path.join(mockPath, filePath).replace(/\\/g,'\\\\')}";`
+      `import ${fileName} from "${slash(path.join(mockPath, filePath))}";`
     );
     dataString.push(`...${fileName}`);
   });
@@ -74,7 +75,7 @@ async function build(mockPath, outputfile) {
   // or write the bundle to disk
   await bundle.write(outputOptions);
   console.log(chalk.yellow("-".repeat(80)));
-  console.log(chalk.blue("finsh merge file"));
+  console.log(chalk.blue("finish merge file"));
 }
 
 module.exports = build;
