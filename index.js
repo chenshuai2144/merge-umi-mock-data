@@ -1,11 +1,9 @@
-const rollup = require("rollup");
-const json = require("rollup-plugin-json");
 const chalk = require("chalk");
-const babel = require("rollup-plugin-babel");
 const glob = require("glob");
 const path = require("path");
 const fs = require("fs");
 const slash = require("slash2");
+const lib = require("umi-library");
 
 const extensions = [".js", ".jsx", ".ts", ".tsx"];
 
@@ -26,26 +24,6 @@ const getArrayLastTwo = fileNameArray => {
 
 const allMock = path.join(__dirname, "./allMock.ts");
 
-const inputOptions = {
-  input: allMock,
-  onwarn(warning) {},
-  plugins: [
-    json({
-      preferConst: true, // Default: false
-      indent: "  "
-    }),
-    babel({
-      extensions,
-      babelrc: false,
-      presets: ["@babel/env", "@babel/preset-typescript"]
-    })
-  ]
-};
-const outputOptions = {
-  file: "./mock.js",
-  format: "umd",
-  name: "mock"
-};
 const importMockFiles = (mockFiles, mockPath) => {
   const importString = [];
   const dataString = [];
@@ -57,7 +35,7 @@ const importMockFiles = (mockFiles, mockPath) => {
         .split("/")
     );
     importString.push(
-      `import ${fileName} from "${slash(
+      `import ${fileName} from "./${slash(
         path.join(mockPath, filePath.replace(".ts", ""))
       )}";`
     );
@@ -73,25 +51,33 @@ const importMockFiles = (mockFiles, mockPath) => {
 };
 
 async function build(mockPath, outputfile) {
-  let mockFiles = glob.sync("**/*.ts", {
-    cwd: mockPath
+  let mockFiles = glob.sync("**/**_mock.ts", {
+    cwd: mockPath,
+    ignore: "* node_modules"
   });
-  mockFiles = mockFiles.concat(
-    glob.sync("../src/**/**/_mock.ts", {
-      cwd: mockPath,
-      ignore: "* node_modules"
-    })
-  );
+  // mockFiles = mockFiles.concat(
+  //   glob.sync("../src/**/**/_mock.ts", {
+  //     cwd: mockPath,
+  //     ignore: "* node_modules"
+  //   })
+  // );
   console.log("get files: " + chalk.green(mockFiles.join(", ")));
   const allMockText = importMockFiles(mockFiles, mockPath);
   fs.writeFileSync(allMock, allMockText);
-  // create a bundle
-  const bundle = await rollup.rollup(inputOptions);
-  // generate code and a sourcemap
-  outputOptions.file = outputfile;
-  await bundle.generate(outputOptions);
+  lib
+    .build({
+      cwd: __dirname,
+      watch: false,
+      buildArgs: {
+        cjs: "rollup",
+        entry: "allMock.ts"
+      }
+    })
+    .catch(e => {
+      console.log(e);
+      process.exit(1);
+    });
   // or write the bundle to disk
-  await bundle.write(outputOptions);
   console.log(chalk.yellow("-".repeat(80)));
   console.log(chalk.blue("finish merge file"));
 }
